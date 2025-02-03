@@ -59,7 +59,7 @@ public class FBXLoader {
 		/* long propertyListLen = */ getNodeLength();
 		String name = getString(getByte());
 
-		FBXNode node = new FBXNode(name, null);
+		FBXNode node = new FBXNode(name, parent);
 
 		for (int i = 0; i < numProperties; i++) {
 			FBXDataType dataType = getDataType();
