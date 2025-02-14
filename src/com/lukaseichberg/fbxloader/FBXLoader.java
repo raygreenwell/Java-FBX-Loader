@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.zip.InflaterInputStream;
@@ -211,7 +212,7 @@ public class FBXLoader {
 	}
 
 	private String getString(int length) {
-		return new String(getBytes(length));
+		return new String(getBytes(length), StandardCharsets.UTF_8);
 	}
 
 	private FBXDataType getDataType() throws IOException {
