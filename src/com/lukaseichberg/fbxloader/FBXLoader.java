@@ -19,23 +19,27 @@ public class FBXLoader {
 
 	private final ByteBuffer buffer;
 
-        private long version;
+	private long version;
 
-	public static FBXFile loadFBXFile(String filePath) throws IOException {
+	public static FBXFile loadFBXFile (String filePath) throws IOException {
 		File file = new File(filePath);
 		FBXLoader loader = new FBXLoader(ByteBuffer.wrap(Files.readAllBytes(file.toPath())));
-                return loader.load(file.getAbsolutePath(), file.getName());
-        }
+		return loader.load(file.getAbsolutePath(), file.getName());
+	}
 
-        public static FBXFile loadFBXFile (String name, InputStream in) throws IOException {
-            return new FBXLoader(ByteBuffer.wrap(in.readAllBytes())).load(null, name);
-        }
+	public static FBXFile loadFBXFile (String name, InputStream in) throws IOException {
+		return loadFBXFile(null, name, in);
+	}
 
-        private FBXLoader (ByteBuffer buffer) {
-            this.buffer = buffer;
-        }
+	public static FBXFile loadFBXFile (String path, String name, InputStream in) throws IOException {
+		return new FBXLoader(ByteBuffer.wrap(in.readAllBytes())).load(path, name);
+	}
 
-        private FBXFile load(String path, String name) throws IOException {
+	private FBXLoader (ByteBuffer buffer) {
+		this.buffer = buffer;
+	}
+
+	private FBXFile load(String path, String name) throws IOException {
 		buffer.order(ByteOrder.LITTLE_ENDIAN);
 
 		byte[] header = getBytes(FBX_FILE_HEADER.length);
